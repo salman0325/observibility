@@ -185,6 +185,83 @@ inhibit_rules:                       # Inhibition rules section
       - instance                     # Instance label same ho
 ```
 
+```bash
+# =========================
+# GLOBAL CONFIGURATION
+# =========================
+global:
+  scrape_interval: 15s        # Prometheus har 15 second mein targets scrape karega
+  evaluation_interval: 15s    # Alert rules har 15 second mein evaluate hongi
+
+# =========================
+# ALERTMANAGER CONFIG
+# =========================
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - localhost:9093
+            # ↑ Alertmanager ka address
+            # ↑ ISI line ki wajah se Prometheus alerts Alertmanager ko bhejta hai
+            # ↑ Yehi 3rd STEP hai (Prometheus → Alertmanager)
+
+# =========================
+# ALERT RULE FILES
+# =========================
+rule_files:
+  - "alert.rules.yml"
+  # ↑ Is file mein node_exporter / blackbox ke alerts defined hote hain
+  # ↑ Example: NodeDown, BlackboxDown, HighCPU etc.
+
+# =========================
+# SCRAPE CONFIGURATIONS
+# =========================
+scrape_configs:
+
+  # -------------------------
+  # NODE EXPORTER JOB
+  # -------------------------
+  - job_name: "node_exporter"
+    # ↑ Job ka naam (labels mein job="node_exporter" aayega)
+
+    static_configs:
+      - targets:
+          - "INSTANCE_1_PRIVATE_IP:9100"
+          # ↑ Node Exporter ka IP aur port
+          # ↑ Agar ye down hua to:
+          # ↑ up{job="node_exporter"} = 0 ho jaayega
+
+  # -------------------------
+  # BLACKBOX EXPORTER JOB
+  # -------------------------
+  - job_name: "blackbox_http"
+    # ↑ Job ka naam blackbox monitoring ke liye
+
+    metrics_path: /probe
+    # ↑ Blackbox exporter ka fixed path
+
+    params:
+      module: [http_2xx]
+      # ↑ http_2xx module use karega
+      # ↑ Matlab HTTP 200 response expect karega
+
+    static_configs:
+      - targets:
+          - http://INSTANCE_1_PRIVATE_IP:APP_PORT
+          # ↑ Ye actual application / URL hai
+          # ↑ Isi URL ko blackbox probe karega
+
+    relabel_configs:
+      # ↓ Target URL ko blackbox ko pass karta hai
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      # ↓ Blackbox exporter ka actual address
+      - target_label: __address__
+        replacement: INSTANCE_2_PRIVATE_IP:9115
+        # ↑ Yahan blackbox_exporter run ho raha hota hai
+```
+
 Restart Prometheus:
 
 ```bash
