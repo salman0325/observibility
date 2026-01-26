@@ -47,6 +47,9 @@ Grafana dashboards ke through visualization hogi.
 - Grafana  
   👉 https://grafana.com/grafana/download
 
+- AleartManager
+  https://github.com/prometheus/alertmanager/releases/download/v0.30.1/alertmanager-0.30.1.linux-amd64.tar.gz
+
 ---
 
 ## Instance 1: Node Exporter Setup
@@ -150,6 +153,36 @@ scrape_configs:
         target_label: __param_target
       - target_label: __address__
         replacement: INSTANCE_2_PRIVATE_IP:9115
+```
+
+```bash
+route:                                # Alertmanager ka main routing section
+  group_by: ['alertname']             # Alerts ko alertname ke basis par group karega
+  group_wait: 30s                     # Pehla alert bhejne se pehle 30 sec wait karega
+  group_interval: 5m                  # Same group ke alerts ke beech 5 min ka gap
+  repeat_interval: 1h                 # Same alert dobara 1 ghante baad bhejega
+  receiver: email-notifications       # Default receiver ka naam
+
+receivers:                            # Receivers ki list
+  - name: email-notifications         # Receiver ka naam
+    email_configs:                    # Email configuration section
+      - to: jaiswalad246@gmail.com    # Jis email par alert bhejna hai
+        from: test@gmail.com          # Sender email address
+        smarthost: smtp.gmail.com:587 # Gmail SMTP server aur port
+        auth_username: jaiswalad246@gmail.com  # SMTP login username
+        auth_identity: jaiswalad246@gmail.com  # SMTP identity
+        auth_password: tpqo ntic asso frgb     # Gmail app password
+        send_resolved: true           # Alert resolve hone par bhi email bheje
+
+inhibit_rules:                       # Inhibition rules section
+  - source_match:                    # Source alert ka match
+      severity: critical             # Agar severity critical ho
+    target_match:                    # Target alert ka match
+      severity: warning              # Aur doosra alert warning ho
+    equal:                           # Dono alerts mein yeh labels same hon
+      - alertname                    # Alert ka naam same ho
+      - dev                          # Dev label same ho
+      - instance                     # Instance label same ho
 ```
 
 Restart Prometheus:
