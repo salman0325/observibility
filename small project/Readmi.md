@@ -155,7 +155,7 @@ scrape_configs:
         replacement: INSTANCE_2_PRIVATE_IP:9115
 ```
 
-```bash
+```yaml
 route:                                # Alertmanager ka main routing section
   group_by: ['alertname']             # Alerts ko alertname ke basis par group karega
   group_wait: 30s                     # Pehla alert bhejne se pehle 30 sec wait karega
@@ -185,7 +185,7 @@ inhibit_rules:                       # Inhibition rules section
       - instance                     # Instance label same ho
 ```
 
-```bash
+```yaml
 # =========================
 # GLOBAL CONFIGURATION
 # =========================
