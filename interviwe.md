@@ -1,9 +1,10 @@
 
-### 1️⃣ What is Observability?
+
+## 🔍 1️⃣ What is Observability?
 
 **Answer:**
-Observability ka matlab hai system ke andar kya ho raha hai usko **samajhna using data**.
-Ye 3 cheezon se hoti hai:
+Observability means understanding what is happening inside a system **using data**.
+It is achieved through three main components:
 
 * **Logs**
 * **Metrics**
@@ -11,24 +12,24 @@ Ye 3 cheezon se hoti hai:
 
 ---
 
-### 2️⃣ Difference between Monitoring and Observability?
+## 🔄 2️⃣ Difference between Monitoring and Observability?
 
 **Answer:**
 
-* **Monitoring**: Pehle se pata hota hai kya check karna hai
-* **Observability**: Unknown problems bhi samajh sakte hain
+* **Monitoring**: You already know what to check (predefined checks).
+* **Observability**: You can also discover unknown issues.
 
-👉 Observability zyada powerful hai.
+👉 Observability is more powerful because it helps in debugging unexpected problems.
 
 ---
 
-### 3️⃣ What are the 3 pillars of Observability?
+## 🧱 3️⃣ What are the 3 pillars of Observability?
 
 **Answer:**
 
-1. **Logs** – detailed events
-2. **Metrics** – numbers (CPU, memory)
-3. **Traces** – request ka complete path
+1. **Logs** – Detailed event records
+2. **Metrics** – Numerical data (CPU, memory, etc.)
+3. **Traces** – End-to-end request flow
 
 ---
 
@@ -37,29 +38,29 @@ Ye 3 cheezon se hoti hai:
 ### 4️⃣ What is Prometheus?
 
 **Answer:**
-Prometheus ek **monitoring tool** hai jo:
+Prometheus is a **monitoring tool** that:
 
-* Metrics collect karta hai
-* Time-series data store karta hai
-* Alerting support karta hai
+* Collects metrics
+* Stores time-series data
+* Supports alerting
 
 ---
 
-### 5️⃣ Prometheus push karta hai ya pull?
+### 5️⃣ Does Prometheus use push or pull?
 
 **Answer:**
-👉 **Pull model** use karta hai
-Prometheus khud ja kar `/metrics` endpoint se data uthata hai.
+👉 Prometheus uses a **pull model**
+It fetches data from the `/metrics` endpoint itself.
 
 ---
 
 ### 6️⃣ What is PromQL?
 
 **Answer:**
-PromQL Prometheus ki **query language** hai
-Is se metrics ko search, filter aur calculate karte hain.
+PromQL is the **query language of Prometheus**
+It is used to search, filter, and calculate metrics.
 
-Example:
+**Example:**
 
 ```
 rate(http_requests_total[5m])
@@ -70,25 +71,25 @@ rate(http_requests_total[5m])
 ### 7️⃣ What is an Exporter in Prometheus?
 
 **Answer:**
-Exporter ek tool hota hai jo metrics ko Prometheus format mein expose karta hai.
+An exporter is a tool that exposes metrics in a format Prometheus understands.
 
-Examples:
+**Examples:**
 
 * Node Exporter (CPU, RAM)
-* Kubernetes metrics
+* Kubernetes exporters
 
 ---
 
 ### 8️⃣ What is Alertmanager?
 
 **Answer:**
-Alertmanager alerts ko manage karta hai:
+Alertmanager manages alerts and sends notifications via:
 
 * Email
 * Slack
 * PagerDuty
 
-Alert spam ko control karta hai.
+It also helps reduce alert spam.
 
 ---
 
@@ -97,27 +98,25 @@ Alert spam ko control karta hai.
 ### 9️⃣ What is Grafana?
 
 **Answer:**
-Grafana ek **visualization tool** hai
-Is se dashboards bante hain (graphs, charts).
+Grafana is a **visualization tool** used to create dashboards (graphs, charts).
 
 ---
 
-### 🔟 Grafana and Prometheus relationship?
+### 🔟 Relationship between Grafana and Prometheus?
 
 **Answer:**
 
-* Prometheus → Data store
-* Grafana → Data show karta hai
+* Prometheus → Stores data
+* Grafana → Visualizes data
 
-👉 Grafana Prometheus se data read karta hai.
+👉 Grafana reads data from Prometheus.
 
 ---
 
 ### 1️⃣1️⃣ What is a Grafana Dashboard?
 
 **Answer:**
-Dashboard multiple panels ka group hota hai
-Jaise:
+A dashboard is a collection of panels showing different metrics like:
 
 * CPU usage
 * Memory usage
@@ -130,34 +129,34 @@ Jaise:
 ### 1️⃣2️⃣ What is OpenTelemetry?
 
 **Answer:**
-OpenTelemetry ek **standard framework** hai jo:
+OpenTelemetry is a **standard framework** that collects:
 
 * Logs
 * Metrics
-* Traces collect karta hai
+* Traces
 
-Vendor-neutral hai.
+It is vendor-neutral.
 
 ---
 
-### 1️⃣3️⃣ Why OpenTelemetry is used?
+### 1️⃣3️⃣ Why is OpenTelemetry used?
 
 **Answer:**
 
-* One standard for observability
+* Provides a single standard for observability
 * Tool-independent
-* Cloud native friendly
+* Works well with cloud-native systems
 
 ---
 
 ### 1️⃣4️⃣ What is OpenTelemetry Collector?
 
 **Answer:**
-Collector data:
+The collector:
 
-* Receive karta hai
-* Process karta hai
-* Export karta hai (Prometheus, Jaeger, etc.)
+* Receives data
+* Processes it
+* Exports it (to Prometheus, Jaeger, etc.)
 
 ---
 
@@ -166,17 +165,16 @@ Collector data:
 ### 1️⃣5️⃣ What is Jaeger?
 
 **Answer:**
-Jaeger ek **distributed tracing tool** hai
-Ye request ka poora flow dikhata hai.
+Jaeger is a **distributed tracing tool**
+It shows the complete request flow.
 
 ---
 
 ### 1️⃣6️⃣ What is a Trace?
 
 **Answer:**
-Trace ek request ka **full journey** hota hai
-Jaise:
-User → API → DB → Response
+A trace represents the **full journey of a request**, for example:
+User → API → Database → Response
 
 ---
 
@@ -184,10 +182,10 @@ User → API → DB → Response
 
 **Answer:**
 
-* **Trace** = complete request
-* **Span** = request ka ek step
+* **Trace** = Complete request
+* **Span** = A single step within the request
 
-Trace multiple spans ka collection hota hai.
+👉 A trace is made up of multiple spans.
 
 ---
 
@@ -196,14 +194,11 @@ Trace multiple spans ka collection hota hai.
 ### 1️⃣8️⃣ What is Fluent Bit?
 
 **Answer:**
-Fluent Bit ek **lightweight log collector** hai
-Mostly Kubernetes mein use hota hai.
+Fluent Bit is a **lightweight log collector**, commonly used in Kubernetes.
 
 ---
 
 ### 1️⃣9️⃣ Fluent Bit vs Fluentd?
-
-**Answer:**
 
 | Fluent Bit  | Fluentd         |
 | ----------- | --------------- |
@@ -213,13 +208,13 @@ Mostly Kubernetes mein use hota hai.
 
 ---
 
-### 2️⃣0️⃣ How logs flow using Fluent Bit?
+### 2️⃣0️⃣ How do logs flow using Fluent Bit?
 
 **Answer:**
 
-1. Pod logs collect
+1. Collect logs from pods
 2. Parse logs
-3. Send to:
+3. Send to destinations like:
 
    * Elasticsearch
    * Loki
@@ -229,8 +224,9 @@ Mostly Kubernetes mein use hota hai.
 
 ## 🧠 INTERVIEW TIP (VERY IMPORTANT)
 
-👉 Ye sentence yaad rakhna:
+👉 Remember this line:
 
 > **“Prometheus for metrics, Grafana for visualization, Jaeger for tracing, Fluent Bit for logs, and OpenTelemetry to unify everything.”**
 
 ---
+
