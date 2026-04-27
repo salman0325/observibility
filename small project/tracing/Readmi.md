@@ -1,3 +1,4 @@
+```yml 
 # Default values for fluent-bit.
 
 # kind -- DaemonSet or Deployment
@@ -552,3 +553,4 @@ hotReload:
     digest:
     pullPolicy: IfNotPresent
   resources: {}
+```
